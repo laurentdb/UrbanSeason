@@ -3,7 +3,7 @@ library(shiny)
 # Load the ggplot2 package which provides
 # the 'mpg' dataset.
 library(ggplot2)
-#source("Reformat.R")
+source("Reformat.R")
 
 # Define the overall UI
 shinyUI(
