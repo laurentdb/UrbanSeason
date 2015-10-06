@@ -3,7 +3,7 @@ library(shiny)
 # Load the ggplot2 package which provides
 # the 'mpg' dataset.
 library(ggplot2)
-source("CompileScores.R")
+#source("Reformat.R")
 
 # Define the overall UI
 shinyUI(
@@ -30,11 +30,22 @@ shinyUI(
                  hr()
                  ,
                  checkboxGroupInput('show_players', 'Tick players to show:',
-                                   unique(points$Name), 
-                                   selected = unique(points$Name)))
+                                   unique(summary$Name), 
+                                   selected = unique(summary$Name)))
                ,
                mainPanel(
                  plotOutput("plot")
+               )
+      )
+      ,
+      tabPanel("Matchs summary",
+               sidebarPanel(
+                 checkboxGroupInput('show_columns2', 'Tick columns to show:',
+                                    colnames(scores0), 
+                                    selected = colnames(scores0)))
+               ,
+               mainPanel(
+                 dataTableOutput("scores")
                )
       )
     )
