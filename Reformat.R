@@ -12,20 +12,23 @@ data <- separate(data, Equipe1, paste0("E1_J",1:5),sep="[ ]+")
 data <- separate(data, Equipe2, paste0("E2_J",1:5),sep="[ ]+")
 
 data <- data %>% mutate(goalDiff=Score_E1-Score_E2)
-data <- tidyr::gather(data, Team, Name, 4:13 ) 
-data$Team <- gsub("_J.","", data$Team)
+data <- tidyr::gather(data, Equipe, Nom, 4:13 ) 
+data$Equipe <- gsub("_J.","", data$Equipe)
 
-data$GoalAvg <- (data$Score_E1-data$Score_E2)*(1*(data$Team=="E1")-1*(data$Team=="E2"))
-data <- data %>% mutate(Win = 1*(GoalAvg>0), Def = 1*(GoalAvg<0), Draw = 1*(GoalAvg==0), Points = 3*Win+Draw)
+data$GoalM <- (data$Score_E1*(data$Equipe=="E1")+data$Score_E2*(data$Equipe=="E2"))
+data$GoalE <- (data$Score_E2*(data$Equipe=="E1")+data$Score_E1*(data$Equipe=="E2"))
+data$GoalDiff <- (data$Score_E1-data$Score_E2)*(1*(data$Equipe=="E1")-1*(data$Equipe=="E2"))
+data <- data %>% mutate(Gagne = 1*(GoalDiff>0), Perdu = 1*(GoalDiff<0), Nul = 1*(GoalDiff==0), Points = 3*Gagne+Nul)
 
-summary <- data %>% group_by(Name) %>% arrange(Date) %>% mutate(TotalPoints=cumsum(Points), TotalGoal =cumsum(GoalAvg), TotalWin = cumsum(Win), TotalDef = cumsum(Def), TotalDraw = cumsum(Draw), TotalPlayed =TotalWin+TotalDef+TotalDraw)
-maxGD <- max(max(summary$TotalGoal),-min(summary$TotalGoal))
-summary <- summary %>% mutate(FinalScore=TotalPoints+TotalGoal/(10*maxGD))
+summary <- data %>% group_by(Nom) %>% arrange(Date) %>% mutate(Pts=cumsum(Points), m =cumsum(GoalM), e =cumsum(GoalE), Diff =cumsum(GoalDiff), G = cumsum(Gagne), P = cumsum(Perdu), N = cumsum(Nul), J =G+P+N)
+maxGD <- max(max(summary$Diff),-min(summary$Diff))
+summary <- summary %>% mutate(Score=Pts+Diff/(10*maxGD))
 
-view <- summary %>% filter(Date==max(Date)) %>% ungroup %>% mutate(Rank = rank(-FinalScore,ties.method="min")) %>% 
-  select(Rank, Name, Points=TotalPoints, GoalAverage = TotalGoal, FinalScore, Win = TotalWin, Draw = TotalDraw, Lose = TotalDef, Played = TotalPlayed) %>%
-  mutate(pcWin = paste0(format(100*Win/Played,digits=0),"%"), pcLose = paste0(format(100*Lose/Played,digits=0),"%"), pcDraw = paste0(format(100*Draw/Played,digits=0),"%")) %>%
-  select(Rank, Name, Points, GoalAverage, FinalScore, Played, Win, pcWin, Draw, pcDraw, Lose, pcLose) %>% 
-  arrange(Rank)
+view <- summary %>% filter(Date==max(Date)) %>% ungroup %>% mutate(Rang = rank(-Score,ties.method="min")) %>% 
+  select(Rang, Nom, Pts, J, G, N, P, m, e, Diff, Score) %>%
+  mutate(pcG = paste0(format(100*G/J,digits=0),"%"), pcN = paste0(format(100*N/J,digits=0),"%"), pcP = paste0(format(100*P/J,digits=0),"%"), mpm = format(m/J,digits=2), epm = format(e/J,digits=2)) %>%
+#  select(Rang, Nom, Pts, J, G, N, P, m, e, Diff, FinalScore, pcP=pcWin, pcN=pcDraw, pcP=pcLose) %>% 
+  arrange(Rang)
 
-
+printColumns <- c("Rang"="Rang", "Nom"="Nom", "Joués (J)" = "J", "Gagnés (G)"="G", "Nuls (N)"="N", "Perdus (P)"="P", "Buts marqués (m)"="m", "Buts encaissés (e)"= "e", "Différence de buts (Diff)"="Diff", "Score" = "Score", "% Gagnés (pcG)"="pcG","% Nuls (pcN)"="pcN", "% Perdus (pcP)"="pcP", "Buts marqués par match (mpm)"="mpm", "Buts encaissés par match (epm)"="epm")
+viewColumns = colnames(view)
