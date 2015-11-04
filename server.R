@@ -57,10 +57,12 @@ shinyServer(function(input, output, session) {
   JoueursPresents <- reactive({
     mydata <- view %>% filter(Nom %in% input$team_players)
     if(input$radioCriteria==1)
-      mydata <- arrange(mydata, desc(Score))
+      mydata <- arrange(mydata, desc(Pts), desc(Score))
     else if(input$radioCriteria==2)
-      mydata <- arrange(mydata, desc(mpm), desc(Score))
+      mydata <- arrange(mydata, desc(Score))
     else if(input$radioCriteria==3)
+      mydata <- arrange(mydata, desc(mpm), desc(Score))
+    else if(input$radioCriteria==4)
       mydata <- arrange(mydata, epm, desc(Score))
     mydata
   })
@@ -94,10 +96,12 @@ shinyServer(function(input, output, session) {
   
   Force1 <- reactive({
     if(input$radioCriteria==1)
-      x <- JoueursPresents()$Score 
+      x <- JoueursPresents()$Pts 
     else if(input$radioCriteria==2)
-      x <- JoueursPresents()$mpm 
+      x <- JoueursPresents()$Score 
     else if(input$radioCriteria==3)
+      x <- JoueursPresents()$mpm 
+    else if(input$radioCriteria==4)
       x <- JoueursPresents()$epm
     sum(as.numeric(x[JoueursPresents()$Nom %in% Equipe1()]))
   })
@@ -111,10 +115,12 @@ shinyServer(function(input, output, session) {
   
   Force2 <- reactive({
     if(input$radioCriteria==1)
-      x <- JoueursPresents()$Score 
+      x <- JoueursPresents()$Pts 
     else if(input$radioCriteria==2)
-      x <- JoueursPresents()$mpm 
+      x <- JoueursPresents()$Score 
     else if(input$radioCriteria==3)
+      x <- JoueursPresents()$mpm 
+    else if(input$radioCriteria==4)
       x <- JoueursPresents()$epm
     sum(as.numeric(x[JoueursPresents()$Nom %in% Equipe2()]))
   })

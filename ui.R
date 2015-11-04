@@ -62,7 +62,7 @@ shinyUI(
                   hr(),
                   h4("Partie déterministe:"),
                   radioButtons("radioCriteria", label = h5("Critère de sélection:"),
-                               choices = list("Score" = 1, "Buts marqués" = 2, "Buts encaissés" = 3), 
+                               choices = list("Nombres de points" =1, "Score" = 2, "Buts marqués" = 3, "Buts encaissés" = 4), 
                                selected = 1)
                   ,numericInput("NbFixed", "Joueurs choisis selon critère", value=6, min=0, max=10)
                 ),
@@ -88,8 +88,8 @@ shinyUI(
                   )
                 )
       )
-      ,tabPanel("Résultats détaillés",
-                mainPanel(dataTableOutput("detailedscores")))
-      )
+     # ,tabPanel("Résultats détaillés",
+    #            mainPanel(dataTableOutput("detailedscores")))
+    )
   )
 )
