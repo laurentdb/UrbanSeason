@@ -88,7 +88,7 @@ shinyUI(
                   )
                 )
       )
-     # ,tabPanel("Résultats détaillés",
+    #  ,tabPanel("Résultats détaillés",
     #            mainPanel(dataTableOutput("detailedscores")))
     )
   )
