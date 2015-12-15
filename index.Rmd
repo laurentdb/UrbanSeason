@@ -3,20 +3,33 @@ title: "Urban 2015-2016"
 author: "Laurent du Bois"
 date: "15 décembre 2015"
 output: html_document
+subtitle: Petit site pour voir l'évolution du score tout au long de l'année
+css: stylesheets/stylesheet.css
 ---
 
-This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" type="text/css" href="stylesheets/normalize.css" media="screen">
+<link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+<link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
+<link rel="stylesheet" type="text/css" href="stylesheets/github-light.css" media="screen">
 
-When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
-
-```{r}
-summary(cars)
+# En bref
+L'idée est de montrer brièvement les statistiques de notre saison d'Urban.
+```{r load, echo=FALSE, results='hide', warning=FALSE, message=FALSE}
+suppressWarnings(library(dplyr))
+suppressWarnings(library(ggplot2))
+source("Reformat.R")
 ```
 
-You can also embed plots, for example:
-
-```{r, echo=FALSE}
-plot(cars)
+# Evolution des scores
+Voici l'évolution des scores en vue graphique.
+```{r graph, echo=FALSE, results='asis'}
+  ggplot(summary, aes(Date, Pts, color=Nom)) +geom_line()+geom_point()+labs(y="Nombre of points")
 ```
 
-Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+# Détail des scores
+Ci-dessous le tableau résumant les résultats des matchs passés.
+```{r anotherview, echo=FALSE}
+library(DT)
+DT::datatable(scores0)
+```
