@@ -34,3 +34,4 @@ printColumns <- c("Rang"="Rang", "Nom"="Nom", "Points (Pts)"="Pts", "Joués (J)"
 viewColumns = colnames(view)
 
 #write.csv(summary, "../csv/summary.csv",row.names=FALSE)
+#
