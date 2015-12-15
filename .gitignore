@@ -1,3 +1,6 @@
 .DS_Store
 rsconnect/*
+.RData
+.Rhistory
+.gitignore
 
