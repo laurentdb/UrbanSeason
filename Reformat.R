@@ -32,3 +32,5 @@ view <- summary %>% filter(Date==max(Date)) %>% ungroup %>% mutate(Rang = rank(-
 
 printColumns <- c("Rang"="Rang", "Nom"="Nom", "Points (Pts)"="Pts", "Joués (J)" = "J", "Gagnés (G)"="G", "Nuls (N)"="N", "Perdus (P)"="P", "Buts marqués (m)"="m", "Buts encaissés (e)"= "e", "Différence de buts (Diff)"="Diff", "Score (Pts+Diff/(10*max(Diff))" = "Score", "% Gagnés (pcG)"="pcG","% Nuls (pcN)"="pcN", "% Perdus (pcP)"="pcP", "Buts marqués par match (mpm)"="mpm", "Buts encaissés par match (epm)"="epm")
 viewColumns = colnames(view)
+
+#write.csv(summary, "../csv/summary.csv",row.names=FALSE)
