@@ -7,11 +7,20 @@ subtitle: Petit site pour voir l'évolution du score tout au long de l'année
 css: stylesheets/stylesheet.css
 ---
 
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" type="text/css" href="stylesheets/normalize.css" media="screen">
-<link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
-<link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
-<link rel="stylesheet" type="text/css" href="stylesheets/github-light.css" media="screen">
+    <!-- HEADER -->
+    <div id="header_wrap" class="outer">
+        <header class="inner">
+          <a id="forkme_banner" href="https://github.com/laurentdb/WebsiteTest">View on GitHub</a>
+
+          <h1 id="project_title">Websitetest</h1>
+          <h2 id="project_tagline">Example of gh-pages use</h2>
+
+            <section id="downloads">
+              <a class="zip_download_link" href="https://github.com/laurentdb/WebsiteTest/zipball/master">Download this project as a .zip file</a>
+              <a class="tar_download_link" href="https://github.com/laurentdb/WebsiteTest/tarball/master">Download this project as a tar.gz file</a>
+            </section>
+        </header>
+    </div>
 
 # En bref
 L'idée est de montrer brièvement les statistiques de notre saison d'Urban.
@@ -33,3 +42,7 @@ Ci-dessous le tableau résumant les résultats des matchs passés.
 library(DT)
 DT::datatable(scores0)
 ```
+
+
+***
+footer 
