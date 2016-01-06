@@ -27,7 +27,7 @@ shinyServer(function(input, output, session) {
   output$plot <- renderPlot({
     if(input$radioView==1)
     {
-      g<-ggplot(summary[summary$Nom%in%input$show_players,], aes(Date, Pts, color=Nom)) +geom_line()+geom_point()+labs(y="Nombre of points")
+      g<-ggplot(summary[summary$Nom%in%input$show_players,], aes(Date, Pts, color=Nom)) +geom_line()+geom_point()+labs(y="Nombre de points")
     }
     else if(input$radioView==2)
     {  
