@@ -4,7 +4,7 @@ library(shiny)
 # the 'mpg' dataset.
 library(ggplot2)
 source("Reformat.R")
-JoueursFrequents <- head(view$Nom,10)
+JoueursFrequents0 <- head(arrange(view,desc(J))$Nom,10)
 
 # Define the overall UI
 shinyUI(
@@ -71,7 +71,7 @@ shinyUI(
                          h4('Joueurs présents:'),
                          checkboxGroupInput('team_players', '',
                                             unique(summary$Nom),
-                                            selected = JoueursFrequents
+                                            selected = JoueursFrequents0
                          )
                   )
                   ,
