@@ -14,6 +14,7 @@ shinyUI(
     tabsetPanel(type = "tabs", 
       tabPanel("Classement",
                sidebarPanel(
+                 sliderInput("min_match", "Nombre de matchs joués", 0, 45, c(5,45), step = NULL, round = FALSE, ticks = TRUE, animate = FALSE),
                  checkboxGroupInput('show_columns', 'Colonnes à afficher:',
                                     printColumns, 
                                     selected = printColumns))

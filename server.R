@@ -11,14 +11,14 @@ shinyServer(function(input, output, session) {
   
   # Filter data based on selections
   output$leaderboard <- renderDataTable({
-    myview <- view[,colnames(view) %in% input$show_columns]
+    myview <- view[view$J>=input$min_match[1],colnames(view) %in% input$show_columns]
     myview
   })
   
   myChoices = unique(summary$Nom)
   
   observe({
-   updateCheckboxGroupInput(
+    updateCheckboxGroupInput(
       session, 'show_players', choices = myChoices,
       selected = if (input$bar) myChoices
     )
