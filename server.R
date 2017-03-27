@@ -59,7 +59,7 @@ shinyServer(function(input, output, session) {
     if(input$radioCriteria==1)
       mydata <- arrange(mydata, desc(Pts), desc(Score))
     else if(input$radioCriteria==2)
-      mydata <- arrange(mydata, desc(Score))
+      mydata <- arrange(mydata, desc(ppm))
     else if(input$radioCriteria==3)
       mydata <- arrange(mydata, desc(mpm), desc(Score))
     else if(input$radioCriteria==4)
@@ -98,7 +98,7 @@ shinyServer(function(input, output, session) {
     if(input$radioCriteria==1)
       x <- JoueursPresents()$Pts 
     else if(input$radioCriteria==2)
-      x <- JoueursPresents()$Score 
+      x <- JoueursPresents()$ppm 
     else if(input$radioCriteria==3)
       x <- JoueursPresents()$mpm 
     else if(input$radioCriteria==4)
@@ -117,7 +117,7 @@ shinyServer(function(input, output, session) {
     if(input$radioCriteria==1)
       x <- JoueursPresents()$Pts 
     else if(input$radioCriteria==2)
-      x <- JoueursPresents()$Score 
+      x <- JoueursPresents()$ppm 
     else if(input$radioCriteria==3)
       x <- JoueursPresents()$mpm 
     else if(input$radioCriteria==4)

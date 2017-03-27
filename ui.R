@@ -9,12 +9,12 @@ JoueursFrequents0 <- head(arrange(view,desc(J))$Nom,10)
 # Define the overall UI
 shinyUI(
   fluidPage(
-    titlePanel("2015-2016 Urban Season"),
+    titlePanel("2016-2017 Urban Season"),
     
     tabsetPanel(type = "tabs", 
       tabPanel("Classement",
                sidebarPanel(
-                 sliderInput("min_match", "Nombre de matchs joués", 0, 45, c(5,45), step = NULL, round = FALSE, ticks = TRUE, animate = FALSE),
+                 sliderInput("min_match", "Nombre de matchs joués", 0, 45, c(4,45), step = NULL, round = FALSE, ticks = TRUE, animate = FALSE),
                  checkboxGroupInput('show_columns', 'Colonnes à afficher:',
                                     printColumns, 
                                     selected = printColumns))
@@ -63,7 +63,7 @@ shinyUI(
                   hr(),
                   h4("Partie déterministe:"),
                   radioButtons("radioCriteria", label = h5("Critère de sélection:"),
-                               choices = list("Nombres de points" =1, "Score" = 2, "Buts marqués" = 3, "Buts encaissés" = 4), 
+                               choices = list("Nombres de points" =1, "Points par match" = 2, "Buts marqués" = 3, "Buts encaissés" = 4), 
                                selected = 1)
                   ,numericInput("NbFixed", "Joueurs choisis selon critère", value=6, min=0, max=10)
                 ),
