@@ -9,12 +9,12 @@ JoueursFrequents0 <- head(arrange(view,desc(J))$Nom,10)
 # Define the overall UI
 shinyUI(
   fluidPage(
-    titlePanel("2016-2017 Urban Season"),
+    titlePanel("2018-2019 Urban Season"),
     
     tabsetPanel(type = "tabs", 
       tabPanel("Classement",
                sidebarPanel(
-                 sliderInput("min_match", "Nombre de matchs joués", 0, 45, c(4,45), step = NULL, round = FALSE, ticks = TRUE, animate = FALSE),
+                 sliderInput("min_match", "Nombre de matchs joués", 0, 45, c(0,45), step = NULL, round = FALSE, ticks = TRUE, animate = FALSE),
                  checkboxGroupInput('show_columns', 'Colonnes à afficher:',
                                     printColumns, 
                                     selected = printColumns))

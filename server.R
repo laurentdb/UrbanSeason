@@ -10,7 +10,7 @@ library(ggplot2)
 shinyServer(function(input, output, session) {
   
   # Filter data based on selections
-  output$leaderboard <- renderDataTable({
+    output$leaderboard <- renderDataTable({
     myview <- view[view$J>=input$min_match[1],colnames(view) %in% input$show_columns]
     myview
   })

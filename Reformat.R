@@ -24,7 +24,7 @@ summary <- data %>% group_by(Nom) %>% arrange(Date) %>% mutate(Pts=cumsum(Points
 maxGD <- max(max(summary$Diff),-min(summary$Diff))
 summary <- summary %>% mutate(Score=Pts+Diff/(10*maxGD))
 
-view <- summary %>% filter(Date==max(Date)) %>% ungroup %>% mutate(Rang = rank(-Score,ties.method="min")) %>% 
+view <- summary %>% filter(Date==max(Date)) %>% filter(Nom!="") %>% ungroup %>% mutate(Rang = rank(-Score,ties.method="min")) %>% 
   select(Rang, Nom, Pts, J, G, N, P, m, e, Diff, Score) %>%
   mutate(pcG = paste0(format(100*G/J,digits=0),"%"), pcN = paste0(format(100*N/J,digits=0),"%"), pcP = paste0(format(100*P/J,digits=0),"%"), mpm = format(m/J,digits=2), epm = format(e/J,digits=2), ppm=Pts/J) %>%
 #  select(Rang, Nom, Pts, J, G, N, P, m, e, Diff, FinalScore, pcP=pcWin, pcN=pcDraw, pcP=pcLose) %>% 
@@ -33,4 +33,5 @@ view <- summary %>% filter(Date==max(Date)) %>% ungroup %>% mutate(Rang = rank(-
 printColumns <- c("Rang"="Rang", "Nom"="Nom", "Points (Pts)"="Pts", "Joués (J)" = "J", "Gagnés (G)"="G", "Nuls (N)"="N", "Perdus (P)"="P", "Buts marqués (m)"="m", "Buts encaissés (e)"= "e", "Différence de buts (Diff)"="Diff", "Score (Pts+Diff/(10*max(Diff))" = "Score", "% Gagnés (pcG)"="pcG","% Nuls (pcN)"="pcN", "% Perdus (pcP)"="pcP", "Buts marqués par match (mpm)"="mpm", "Buts encaissés par match (epm)"="epm", "Points par match (ppm)"="ppm")
 viewColumns = colnames(view)
 
-#write.csv(summary, "../csv/summary.csv",row.names=FALSE)
+# write.csv(summary, "../csv/summary.csv",row.names=FALSE)
+
